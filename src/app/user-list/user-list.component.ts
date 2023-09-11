@@ -51,9 +51,8 @@ export class UserListComponent implements OnInit {
     
         dialogRef.afterClosed().subscribe(result => {
             if(result.success){
-                const oldDataSource: User[] = Object.assign([], this.dataSource);
-                oldDataSource[i] = result.data;
-                this.dataSource = oldDataSource;
+                console.log(result.data);
+                this.getUsers();
             }
         });
     }
