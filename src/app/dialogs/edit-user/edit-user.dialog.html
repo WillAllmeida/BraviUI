@@ -10,7 +10,7 @@
       </div>
 
       <div mat-dialog-actions>
-        <button mat-button [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="stopEdit()">Save</button>
+        <button mat-button [disabled]="!formControl.valid" (click)="stopEdit()">Save</button>
         <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
       </div>
     </form>
