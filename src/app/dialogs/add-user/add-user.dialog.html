@@ -1,17 +1,40 @@
 <div class="container">
-    <h3 mat-dialog-title>Adicionar Novo Contato</h3>
-  
-    <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+    <h3 mat-dialog-title>Adicionar Novo Usuário</h3>
 
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput placeholder="Name" [(ngModel)]="data.name" name="name">
-        </mat-form-field>
-      </div>
-  
-      <div mat-dialog-actions>
-        <button mat-button [disabled]="!formControl.valid" (click)="confirmAdd()">Save</button>
-        <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
-      </div>
-    </form>
-  </div>
+    <mat-dialog-content>
+
+        <form (ngSubmit)="submit" #formControl="ngForm">
+
+            <div class="form">
+                <mat-form-field color="primary" class="input-name">
+                    <input matInput placeholder="Name" [(ngModel)]="data.name" name="name">
+                </mat-form-field>
+            </div>
+
+            <div class="subtitle">
+                <h2 class="subtitle-contacts">Contatos</h2>
+                <button mat-icon-button color="primary" (click)="addContact()">
+                    <mat-icon aria-label="Add">add</mat-icon>
+                </button>
+            </div>
+
+            <div class="form" *ngFor="let contact of data.contacts; let i = index">
+                <mat-form-field color="primary" class="input-contact">
+                    <input type="number" matInput placeholder="Tipo" [(ngModel)]="contact.type" [name]="contact.type + '_' + i">
+                </mat-form-field>
+                <mat-form-field color="primary" class="input-type">
+                    <input matInput placeholder="Valor" [(ngModel)]="contact.value" [name]="contact.value + '_' + i">
+                </mat-form-field>
+                <button mat-icon-button color="accent" (click)="removeContact()">
+                    <mat-icon aria-label="Delete">delete</mat-icon>
+                </button>
+            </div>
+
+        </form>
+    </mat-dialog-content>
+
+    <div mat-dialog-actions class="actions">
+        <button color="primary" mat-button [disabled]="!formControl.valid" (click)="confirmAdd()">Save</button>
+        <button color="warn" mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+</div>

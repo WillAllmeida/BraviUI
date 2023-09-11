@@ -34,7 +34,7 @@ export class UserListComponent implements OnInit {
 
     addNew(){ 
         const dialogRef = this.dialog.open(AddUserDialogComponent, {
-            data: {user: User }
+            data: {user: User}
         });
       
         dialogRef.afterClosed().subscribe(result => {

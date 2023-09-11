@@ -2,18 +2,44 @@
     display: flex;
     flex-direction: column;
     min-width: 450px;
-  }
-  
-  .container > * {
+}
+
+.container>* {
     width: 100%;
-  }
-  
-  .form {
+}
+
+.form {
+    margin-left: 1%;
     display: flex;
     padding-top: 6px;
-  }
-  
-  .mat-form-field {
+}
+
+.actions {
+    margin-left: 3%;
+    display: flex;
+    width: 90% !important;
+}
+
+.mat-form-field {
     font-size: 16px;
     flex-grow: 1;
-  }
+}
+
+.input-name {
+    width: 75%;
+}
+
+.input-contact {
+    width: 40%;
+    padding-right: 10px;
+}
+
+.subtitle {
+    display:flex;
+}
+
+.subtitle-contacts{
+    margin-left: 5%;
+    margin-top: 2%;
+    padding-right: 20%;
+}

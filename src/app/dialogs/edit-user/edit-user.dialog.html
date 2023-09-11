@@ -1,17 +1,17 @@
 <div class="container">
-    <h3 mat-dialog-title>Issue id: {{data.id}}</h3>
-  
-    <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
-  
-      <div class="form">
-          <mat-form-field color="accent">
-            <input matInput placeholder="Name" [(ngModel)]="data.name" name="name">
-          </mat-form-field>
-      </div>
+    <h3 mat-dialog-title>Editar Usuário<br>ID: {{data.id}}</h3>
 
-      <div mat-dialog-actions>
-        <button mat-button [disabled]="!formControl.valid" (click)="stopEdit()">Save</button>
-        <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
-      </div>
+    <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+
+        <div class="form">
+            <mat-form-field color="primary" class="input-name">
+                <input matInput placeholder="Nome" [(ngModel)]="data.name" name="name">
+            </mat-form-field>
+        </div>
+
+        <div mat-dialog-actions class="actions">
+            <button color="primary" mat-button [disabled]="!formControl.valid" (click)="stopEdit()">Save</button>
+            <button color="warn" mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+        </div>
     </form>
-  </div>
+</div>
