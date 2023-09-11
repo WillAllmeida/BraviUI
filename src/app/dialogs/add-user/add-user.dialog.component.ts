@@ -13,11 +13,10 @@ import { User } from '@shared/models/user.model';
 export class AddUserDialogComponent {
     constructor(public dialogRef: MatDialogRef<AddUserDialogComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: User,
-                public dataService: UserService) { }
+                public userService: UserService) { }
   
     formControl = new FormControl('', [
       Validators.required
-      // Validators.email,
     ]);
   
     getErrorMessage() {
@@ -31,11 +30,11 @@ export class AddUserDialogComponent {
     }
   
     onNoClick(): void {
-      this.dialogRef.close();
+      this.dialogRef.close({success: false});
     }
   
     public confirmAdd(): void {
-        this.dataService.addUser(this.data).subscribe(
+        this.userService.addUser(this.data).subscribe(
             result => {
                 this.data.id = result;
                 this.data.contacts = [];

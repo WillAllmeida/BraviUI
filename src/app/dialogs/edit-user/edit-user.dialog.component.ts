@@ -11,11 +11,10 @@ import { FormControl, Validators } from '@angular/forms';
 export class EditUserDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<EditUserDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any, public dataService: UserService) { }
+              @Inject(MAT_DIALOG_DATA) public data: any, public userService: UserService) { }
 
   formControl = new FormControl('', [
     Validators.required
-    // Validators.email,
   ]);
 
   getErrorMessage() {
@@ -29,11 +28,11 @@ export class EditUserDialogComponent {
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close({success: false});
   }
 
   stopEdit(): void {
-    this.dataService.updateUser(this.data).subscribe(
+    this.userService.updateUser(this.data).subscribe(
         result => {
             this.data = result;
             this.dialogRef.close({success: true, data: this.data});
