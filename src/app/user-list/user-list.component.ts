@@ -14,7 +14,7 @@ import { EditUserDialogComponent } from '../dialogs/edit-user/edit-user.dialog.c
 
 @Injectable()
 export class UserListComponent implements OnInit {
-    @ViewChild('table') myTable: MatTable<any>;
+    @ViewChild('table') usersTable: MatTable<any>;
 
     displayedColumns = ['id', 'name', 'contacts','actions'];
     dataSource: Array<User>;
@@ -52,7 +52,7 @@ export class UserListComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             if(result.success){
                 this.dataSource[i] = result.data;
-                this.myTable.renderRows();
+                this.usersTable.renderRows();
             }
         });
     }
