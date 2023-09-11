@@ -51,8 +51,10 @@ export class UserListComponent implements OnInit {
     
         dialogRef.afterClosed().subscribe(result => {
             if(result.success){
-                this.dataSource[i] = result.data;
-                this.myTable.renderRows();
+                let oldDataSource = [...this.dataSource];
+                oldDataSource[i] = result.data;
+                this.dataSource = oldDataSource;
+                //this.myTable.renderRows();
             }
         });
     }
