@@ -8,6 +8,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserListComponent } from './user-list/user-list.component';
 import { AddUserDialogComponent } from './dialogs/add-user/add-user.dialog.component';
 import { EditUserDialogComponent } from './dialogs/edit-user/edit-user.dialog.component';
+import { ViewUserDialogComponent } from './dialogs/view-user/view-user.dialog.component';
 
 import{ UserService } from '@shared/services/user.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -26,7 +28,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     HeaderComponent,
     UserListComponent,
     AddUserDialogComponent,
-    EditUserDialogComponent
+    EditUserDialogComponent,
+    ViewUserDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatSnackBarModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent],

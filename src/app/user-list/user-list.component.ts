@@ -5,6 +5,7 @@ import { MatTable } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserDialogComponent } from '../dialogs/add-user/add-user.dialog.component';
 import { EditUserDialogComponent } from '../dialogs/edit-user/edit-user.dialog.component';
+import { ViewUserDialogComponent } from '../dialogs/view-user/view-user.dialog.component';
 
 @Component({
   selector: 'app-user-list',
@@ -44,7 +45,17 @@ export class UserListComponent implements OnInit {
         });
     }
 
-    startEdit(i: number, user: User){
+    viewUser(i: number, user: User){
+        console.log(user);
+        const dialogRef = this.dialog.open(ViewUserDialogComponent, {
+          data: user
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+        });
+    }
+
+    editUser(i: number, user: User){
         const dialogRef = this.dialog.open(EditUserDialogComponent, {
           data: {id: user.id, name: user.name}
         });

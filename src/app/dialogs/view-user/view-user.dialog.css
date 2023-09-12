@@ -1,0 +1,50 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-width: 450px;
+}
+
+.container>* {
+    width: 100%;
+}
+
+.title-header {
+    display: flex;
+}
+
+.close-button {
+    margin-top: 4%;
+    margin-right: 5%;
+    margin-left: auto;
+}
+
+.add-button {
+    margin-right: 5%;
+    margin-left: auto;
+}
+
+.contact-form {
+    display: flex;
+}
+
+.contact-title {
+    display: flex;
+    color: black;
+}
+
+.content {
+    padding-top: 0px !important;
+}
+
+.contact-type {
+    margin-left: 5%;
+    margin-top: 2%;
+    padding-right: 20%;
+    color: black;
+}
+
+.contact-value {
+    margin-top: 2%;
+    padding-right: 40%;
+    color: black;
+}

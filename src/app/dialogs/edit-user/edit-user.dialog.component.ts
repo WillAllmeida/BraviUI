@@ -1,4 +1,5 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { Component, Inject } from '@angular/core';
 import { UserService } from '@shared/services/user.service';
 import { FormControl, Validators } from '@angular/forms';
@@ -11,7 +12,8 @@ import { FormControl, Validators } from '@angular/forms';
 export class EditUserDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<EditUserDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any, public userService: UserService) { }
+              @Inject(MAT_DIALOG_DATA) public data: any, public userService: UserService,
+              private _snackBar: MatSnackBar) { }
 
   formControl = new FormControl('', [
     Validators.required
@@ -23,21 +25,19 @@ export class EditUserDialogComponent {
         '';
   }
 
-  submit() {
-    // emppty stuff
-  }
-
-  onNoClick(): void {
+  onCancel(): void {
     this.dialogRef.close({success: false});
   }
 
-  stopEdit(): void {
+  updateUser(): void {
     this.userService.updateUser(this.data).subscribe(
         result => {
             this.data = result;
-            this.dialogRef.close({success: true, data: this.data});
+            this._snackBar.open(`Usuário ${this.data.id} atualizado com sucesso`, "X", {duration: 5000, panelClass: 'app-notification-success'});
+            this.dialogRef.close({success: true, data: this.data});        
         },
         error => {
+            this._snackBar.open("Erro ao atualizar usuário", "X", {duration: 5000, panelClass: 'app-notification-error'});
             this.dialogRef.close({success: false});
         });
   }
