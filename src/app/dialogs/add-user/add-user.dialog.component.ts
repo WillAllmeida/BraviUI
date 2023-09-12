@@ -54,7 +54,7 @@ export class AddUserDialogComponent implements OnInit {
         this.userService.addUser(this.data).subscribe(
             result => {
                 this.data.id = result;
-                this._snackBar.open(`Usuário ${this.data.name} e ${this.data.contacts.length} contatos adicionados com sucesso`, "X", {duration: 5000, panelClass: 'app-notification-success'});
+                this._snackBar.open(`Usuário ${this.data.name} e ${this.data.contacts.length} ${this.data.contacts.length == 1 ? "contato adicionado" : "contatos adicionados"} com sucesso`, "X", {duration: 5000, panelClass: 'app-notification-success'});
                 this.dialogRef.close({success: true, data: this.data});
             },
             error => {

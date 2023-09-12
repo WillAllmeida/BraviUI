@@ -1,5 +1,5 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { FormControl, Validators } from '@angular/forms';
 import { User } from '@shared/models/user.model';
@@ -17,6 +17,7 @@ import { _isNumberValue } from '@angular/cdk/coercion';
 
 export class ViewUserDialogComponent implements OnInit {
     @ViewChild('contactsTable') contactsTable: MatTable<any>;
+    @Output() signalEvent = new EventEmitter<any>();
 
     contactTypes: any[] = [];
     displayedColumns = ['type', 'value', 'actions'];
@@ -24,7 +25,7 @@ export class ViewUserDialogComponent implements OnInit {
     isEdit: boolean;
 
     constructor(public dialogRef: MatDialogRef<ViewUserDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: User,
+        @Inject(MAT_DIALOG_DATA) public data: any,
         private _snackBar: MatSnackBar,
         public contactService: ContactService) {
     }
@@ -53,7 +54,11 @@ export class ViewUserDialogComponent implements OnInit {
             let updatedTable = [...this.dataSource.slice(0, -1)];
             if (result) {
                 this.dataSource = updatedTable;
+                this._snackBar.open(`Contato ${this.data.id} deletado com sucesso`, "X", { duration: 5000, panelClass: 'app-notification-success' });
             }
+        },
+        error => {
+            this._snackBar.open("Erro ao deletar contato", "X", { duration: 5000, panelClass: 'app-notification-error' });
         });
     }
 
@@ -70,6 +75,7 @@ export class ViewUserDialogComponent implements OnInit {
                     this.dataSource[i] = contact;
                     this.data.contacts = this.dataSource;
                     this.isEdit = false;
+                    this.signalEvent.emit(this.dataSource);
                     this._snackBar.open(`Contato ${result} adicionado com sucesso`, "X", { duration: 5000, panelClass: 'app-notification-success' });
                 },
                 error => {
@@ -79,6 +85,7 @@ export class ViewUserDialogComponent implements OnInit {
             this.contactService.updateContact(contact).subscribe(
                 result => {
                     this.dataSource[i] = contact;
+                    this.signalEvent.emit(this.dataSource);
                     this._snackBar.open(`Contato ${this.data.id} atualizado com sucesso`, "X", { duration: 5000, panelClass: 'app-notification-success' });
                 },
                 error => {

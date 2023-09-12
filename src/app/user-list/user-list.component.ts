@@ -3,6 +3,7 @@ import { User } from "@shared/models/user.model";
 import { UserService } from "@shared/services/user.service";
 import { MatTable } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddUserDialogComponent } from '../dialogs/add-user/add-user.dialog.component';
 import { EditUserDialogComponent } from '../dialogs/edit-user/edit-user.dialog.component';
 import { ViewUserDialogComponent } from '../dialogs/view-user/view-user.dialog.component';
@@ -21,7 +22,8 @@ export class UserListComponent implements OnInit {
     dataSource: Array<User>;
 
     constructor(private userService: UserService,
-        public dialog: MatDialog,) { }
+        public dialog: MatDialog,
+        private _snackBar: MatSnackBar) { }
 
     ngOnInit(): void {
         this.getUsers();
@@ -47,16 +49,15 @@ export class UserListComponent implements OnInit {
 
     viewUser(i: number, user: User) {
         const dialogRef = this.dialog.open(ViewUserDialogComponent, {
-            data: user
+            data: {id: user.id, contacts: JSON.parse(JSON.stringify(user.contacts))}
+        });
+
+        const contactChangesEvent = dialogRef.componentInstance.signalEvent.subscribe(result => {
+            this.dataSource[i].contacts = result;
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            if(!result) {
-                this.dataSource[i].contacts = dialogRef.componentInstance.data.contacts;
-            } else {
-                this.dataSource[i].contacts = result.contacts;
-            }
-            this.usersTable.renderRows();
+            contactChangesEvent.unsubscribe();
         });
     }
 
@@ -78,7 +79,11 @@ export class UserListComponent implements OnInit {
             if (result) {
                 this.dataSource.splice(i, 1)
                 this.usersTable.renderRows();
+                this._snackBar.open(`Usuário ${id} deletado com sucesso`, "X", { duration: 5000, panelClass: 'app-notification-success' });
             }
+        },
+        error => {
+            this._snackBar.open("Erro ao deletar usuário", "X", { duration: 5000, panelClass: 'app-notification-error' });
         });
     }
 }
