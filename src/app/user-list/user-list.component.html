@@ -2,7 +2,7 @@
 
     <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
         <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
         </ng-container>
 
@@ -25,11 +25,15 @@
             </mat-header-cell>
 
             <mat-cell *matCellDef="let row; let i=index;">
-                <button mat-icon-button color="accent" (click)="viewUser(i, row)">
+                <button mat-icon-button color="primary" (click)="viewUser(i, row)">
+                    <mat-icon aria-label="Delete">visibility</mat-icon>
+                </button>
+
+                <button mat-icon-button color="accent" (click)="editUser(i, row)">
                     <mat-icon aria-label="Edit">edit</mat-icon>
                 </button>
 
-                <button mat-icon-button color="accent" (click)="deleteItem(row.id)">
+                <button mat-icon-button color="warn" (click)="deleteUser(row.id)">
                     <mat-icon aria-label="Delete">delete</mat-icon>
                 </button>
             </mat-cell>

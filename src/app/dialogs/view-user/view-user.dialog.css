@@ -36,15 +36,6 @@
     padding-top: 0px !important;
 }
 
-.contact-type {
-    margin-left: 5%;
-    margin-top: 2%;
-    padding-right: 20%;
-    color: black;
-}
-
-.contact-value {
-    margin-top: 2%;
-    padding-right: 40%;
-    color: black;
+.column-value {
+    margin-left: -20%;
 }

@@ -5,21 +5,41 @@
             <mat-icon aria-label="Close">close</mat-icon>
         </button>
     </div>
-
     <mat-dialog-content class="content">
-        <div class="contact-title">
-            <h1 class="contact-type">Tipo</h1>
-            <h1 class="contact-value">Valor</h1>
-            <button class="add-button" mat-icon-button color="primary" (click)="addContact()">
-                <mat-icon aria-label="Add">add</mat-icon>
-            </button>
-        </div>
-        <div *ngFor="let contact of data.contacts">
-            <div class="contact-form">
-                <p class="contact-type">{{contact.type}}</p>
-                <p>{{contact.value}}</p>
-            </div>
-        </div>
+    
+    <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+        <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.type}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="value">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="column-value">Valor</mat-header-cell>
+            <mat-cell *matCellDef="let row" class="column-value"> {{row.value}}</mat-cell>
+        </ng-container>
+
+        <!-- actions -->
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>
+                <button mat-icon-button color="primary" (click)="addContact()">
+                    <mat-icon aria-label="Add">add</mat-icon>
+                </button>
+            </mat-header-cell>
+
+            <mat-cell *matCellDef="let row; let i=index;">
+                <button mat-icon-button color="accent" (click)="onCancel()">
+                    <mat-icon aria-label="Edit">edit</mat-icon>
+                </button>
+
+                <button mat-icon-button color="accent" (click)="deleteContact(row.id)">
+                    <mat-icon aria-label="Delete">delete</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
     </mat-dialog-content>
 </div>
     
