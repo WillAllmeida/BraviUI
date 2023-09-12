@@ -6,6 +6,8 @@ import { User } from '@shared/models/user.model';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Contact } from '@shared/models/contact.model';
 import { ContactService } from '@shared/services/contact.service';
+import { ContactType, ContactTypeToIcon } from '@shared/enums/contact-type.enum';
+import { _isNumberValue } from '@angular/cdk/coercion';
 
 @Component({
     selector: 'app-view-user.dialog',
@@ -16,6 +18,7 @@ import { ContactService } from '@shared/services/contact.service';
 export class ViewUserDialogComponent implements OnInit {
     @ViewChild('contactsTable') contactsTable: MatTable<any>;
 
+    contactTypes: any[] = [];
     displayedColumns = ['type', 'value', 'actions'];
     dataSource: Array<Contact>;
     isEdit: boolean;
@@ -33,6 +36,7 @@ export class ViewUserDialogComponent implements OnInit {
     ngOnInit(): void {
         this.isEdit = false;
         this.dataSource = this.data.contacts;
+        Object.keys(ContactType).filter(k => _isNumberValue(Number(k))).forEach(i => this.contactTypes.push({value: Number(i), viewValue: ContactType[Number(i)], icon: ContactTypeToIcon[Number(i)]}));
     }
 
     onCancel(): void {

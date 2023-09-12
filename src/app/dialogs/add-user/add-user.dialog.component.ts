@@ -1,10 +1,12 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { UserService } from '@shared/services/user.service';
 import { FormControl, Validators } from '@angular/forms';
 import { User } from '@shared/models/user.model';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { Contact } from '@shared/models/contact.model';
+import { ContactType, ContactTypeToIcon } from '@shared/enums/contact-type.enum';
+import { _isNumberValue } from '@angular/cdk/coercion';
 
 @Component({
   selector: 'app-add-user.dialog',
@@ -12,7 +14,9 @@ import { Contact } from '@shared/models/contact.model';
   styleUrls: ['../../dialogs/add-user/add-user.dialog.css']
 })
 
-export class AddUserDialogComponent {
+export class AddUserDialogComponent implements OnInit {
+    contactTypes: any[] = [];
+
     constructor(public dialogRef: MatDialogRef<AddUserDialogComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: User,
                 private _snackBar: MatSnackBar,
@@ -23,6 +27,10 @@ export class AddUserDialogComponent {
     formControl = new FormControl('', [
       Validators.required
     ]);
+
+    ngOnInit(): void{
+        Object.keys(ContactType).filter(k => _isNumberValue(Number(k))).forEach(i => this.contactTypes.push({value: Number(i), viewValue: ContactType[Number(i)], icon: ContactTypeToIcon[Number(i)]},));
+    }
   
     getErrorMessage() {
       return this.formControl.hasError('required') ? 'Required field' :

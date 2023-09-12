@@ -40,6 +40,19 @@
     margin-left: -20%;
 }
 
+.input-type {
+    width: 65%;
+    margin-left: -5%;
+}
+
 .input-value {
-    width: 50%;
+    width: 115%;
+}
+
+.add-contact-field {
+    margin-top: 8%;
+}
+
+.column-actions{
+    margin-right: -28%;
 }

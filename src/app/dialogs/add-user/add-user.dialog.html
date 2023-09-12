@@ -20,7 +20,12 @@
 
             <div class="form" *ngFor="let contact of data.contacts; let i = index">
                 <mat-form-field color="primary" class="input-contact">
-                    <input type="number" matInput placeholder="Tipo" [(ngModel)]="contact.type" [name]="contact.type + '_' + i">
+                    <mat-label>Tipo</mat-label>
+                    <mat-select [(value)]="contact.type">
+                      <mat-option *ngFor="let type of contactTypes" [value]="type.value">
+                        <mat-icon>{{type.icon}}</mat-icon>{{type.viewValue}}
+                      </mat-option>
+                    </mat-select>
                 </mat-form-field>
                 <mat-form-field color="primary" class="input-type">
                     <input matInput placeholder="Valor" [(ngModel)]="contact.value" [name]="contact.value + '_' + i">
