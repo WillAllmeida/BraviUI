@@ -7,7 +7,7 @@
     </div>
     <mat-dialog-content class="content">
     
-    <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+    <mat-table #contactTable [dataSource]="dataSource" matSort class="mat-cell">
         <ng-container matColumnDef="type">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</mat-header-cell>
             <mat-cell *matCellDef="let row">{{row.type}}</mat-cell>

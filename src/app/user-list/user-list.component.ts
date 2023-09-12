@@ -52,6 +52,8 @@ export class UserListComponent implements OnInit {
         });
     
         dialogRef.afterClosed().subscribe(result => {
+            this.dataSource[i].contacts = result.contacts;
+            this.usersTable.renderRows();
         });
     }
 
@@ -68,7 +70,7 @@ export class UserListComponent implements OnInit {
         });
     }
 
-    deleteItem(id: number){
+    deleteUser(id: number){
         this.userService.deleteUser(id).subscribe(result => {
             let updatedTable = [...this.dataSource.slice(0, -1)];
             if(result){

@@ -20,6 +20,7 @@ import { EditUserDialogComponent } from './dialogs/edit-user/edit-user.dialog.co
 import { ViewUserDialogComponent } from './dialogs/view-user/view-user.dialog.component';
 
 import{ UserService } from '@shared/services/user.service';
+import{ ContactService } from '@shared/services/contact.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
@@ -46,7 +47,10 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     MatInputModule,
     MatSnackBarModule
   ],
-  providers: [UserService],
+  providers: [
+    UserService,
+    ContactService
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
