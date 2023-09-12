@@ -17,4 +17,12 @@ export class ContactService {
     deleteContact(id: number): Observable<boolean> {
         return this.http.delete<boolean>(this.apiURL + 'contact/' + id, httpOptions);
     }
+
+    updateContact(contact: Contact): Observable<number>{
+        return this.http.put<number>(this.apiURL + 'contact', contact, httpOptions);
+    }
+
+    addContact(contact: Contact): Observable<number>{
+        return this.http.post<number>(this.apiURL + 'contact', contact, httpOptions);
+    }
 }

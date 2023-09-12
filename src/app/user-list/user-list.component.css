@@ -3,6 +3,9 @@
     width: 50%;
     margin-left: 25%;
     margin-top: 4%;
+    overflow-y: scroll;
+    max-height: 80%;
+    min-height: 25%;
 }
 
 .container {

@@ -6,40 +6,55 @@
         </button>
     </div>
     <mat-dialog-content class="content">
-    
-    <mat-table #contactTable [dataSource]="dataSource" matSort class="mat-cell">
-        <ng-container matColumnDef="type">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.type}}</mat-cell>
-        </ng-container>
 
-        <ng-container matColumnDef="value">
-            <mat-header-cell *matHeaderCellDef mat-sort-header class="column-value">Valor</mat-header-cell>
-            <mat-cell *matCellDef="let row" class="column-value"> {{row.value}}</mat-cell>
-        </ng-container>
+        <mat-table #contactsTable [dataSource]="dataSource" matSort class="mat-cell">
+            <ng-container matColumnDef="type">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <mat-form-field color="primary" class="input-value mat-card" appearance="outline">
+                        <input type="number" [readonly]="!isEdit" matInput placeholder="Tipo" [(ngModel)]="row.type" name="type">
+                    </mat-form-field>
+                </mat-cell>
+            </ng-container>
 
-        <!-- actions -->
-        <ng-container matColumnDef="actions">
-            <mat-header-cell *matHeaderCellDef>
-                <button mat-icon-button color="primary" (click)="addContact()">
-                    <mat-icon aria-label="Add">add</mat-icon>
-                </button>
-            </mat-header-cell>
+            <ng-container matColumnDef="value">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="column-value">Valor</mat-header-cell>
+                <mat-cell *matCellDef="let row" class="column-value">
+                    <mat-form-field color="primary" appearance="outline">
+                        <input [readonly]="!isEdit" matInput placeholder="Valor" [(ngModel)]="row.value" name="value">
+                    </mat-form-field>
+                </mat-cell>
+            </ng-container>
 
-            <mat-cell *matCellDef="let row; let i=index;">
-                <button mat-icon-button color="accent" (click)="onCancel()">
-                    <mat-icon aria-label="Edit">edit</mat-icon>
-                </button>
+            <!-- actions -->
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef>
+                    <button mat-icon-button color="primary" (click)="addContact()">
+                        <mat-icon aria-label="Add">add</mat-icon>
+                    </button>
+                </mat-header-cell>
 
-                <button mat-icon-button color="accent" (click)="deleteContact(row.id)">
-                    <mat-icon aria-label="Delete">delete</mat-icon>
-                </button>
-            </mat-cell>
-        </ng-container>
+                <mat-cell *matCellDef="let row; let i=index;">
+                    <button *ngIf="!isEdit" mat-icon-button color="accent" (click)="editContact()">
+                        <mat-icon aria-label="Edit">edit</mat-icon>
+                    </button>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
+                    <button *ngIf="!isEdit" mat-icon-button color="warn" (click)="deleteContact(row.id)">
+                        <mat-icon aria-label="Delete">delete</mat-icon>
+                    </button>
+
+                    <button *ngIf="isEdit" mat-icon-button color="primary" (click)="saveContact(i, row)">
+                        <mat-icon aria-label="Save">check_circle</mat-icon>
+                    </button>
+
+                    <button *ngIf="isEdit" mat-icon-button color="accent" (click)="editContact()">
+                        <mat-icon aria-label="CancelEdit">cancel</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
     </mat-dialog-content>
 </div>
-    
